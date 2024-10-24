@@ -45,7 +45,7 @@ const Product = ({ product }) => {
           <h2 className="font-semibold mb-1">{title}</h2>
         </Link>
 
-        <h2 className="font-semibbold">$ {price}</h2>
+        <h2 className="font-semibbold">Kes {price}</h2>
       </div>
     </div>
   );
