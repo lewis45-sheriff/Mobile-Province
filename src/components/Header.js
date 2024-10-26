@@ -8,16 +8,35 @@ import { BsBag } from "react-icons/bs";
 const Header = () => {
   // header state
   const [isActive, setIsActive] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { itemAmount } = useContext(CartContext);
   const [searchQuery, setSearchQuery] = useState("");
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   // event listener for scrolling
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      window.scrollY > 60 ? setIsActive(true) : setIsActive(false);
-    });
-  }, []);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Toggle header visibility based on scroll direction
+      if (currentScrollY > lastScrollY) {
+        setIsVisible(false); // Scrolling down
+      } else {
+        setIsVisible(true); // Scrolling up
+      }
+      setLastScrollY(currentScrollY);
+
+      // Change header background based on scroll position
+      setIsActive(currentScrollY > 60);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -26,8 +45,10 @@ const Header = () => {
   return (
     <header
       className={`${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      } ${
         isActive ? "bg-white py-4 shadow-md" : "bg-none py-6"
-      } fixed w-full z-10 lg:px-8 transition-all`}
+      } fixed w-full z-10 lg:px-8 transition-transform duration-300`}
     >
       <div className="container mx-auto flex items-center justify-between h-full">
         <Link to={"/"}>
@@ -53,7 +74,6 @@ const Header = () => {
           <Link to="/login" className="text-sm font-semibold text-gray-700 hover:text-gray-900">
             Login
           </Link>
-          
 
           {/* Cart */}
           <div
