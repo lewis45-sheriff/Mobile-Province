@@ -56,10 +56,10 @@ const CartItem = ({ item }) => {
               </div>
               {/* item price */}
               <div className="flex flex-1 justify-around items-center">
-                $ {price}
+                Kes{price}
               </div>
               {/* final price */}
-              <div className="flex flex-1 justify-end items-center text-primary font-medium">{`$ ${parseFloat(
+              <div className="flex flex-1 justify-end items-center text-primary font-medium">{`Kes ${parseFloat(
                 price * amount
               ).toFixed(2)}`}</div>
             </div>

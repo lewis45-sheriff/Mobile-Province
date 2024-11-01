@@ -4,31 +4,32 @@ import { CartContext } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
 import Logo from "../img/atlas liquor logo.svg";
 import { BsBag } from "react-icons/bs";
+import { ProductContext } from '../contexts/ProductContext'; // Import the ProductContext
 
 const Header = () => {
-  // header state
+  // Header state
   const [isActive, setIsActive] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { itemAmount } = useContext(CartContext);
-  const [searchQuery, setSearchQuery] = useState("");
+  const { searchTerm, setSearchTerm } = useContext(ProductContext); // Access the search term and setter
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // event listener for scrolling
+  // Event listener for scrolling
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
       // Toggle header visibility based on scroll direction
       if (currentScrollY > lastScrollY) {
-        setIsVisible(false); // Scrolling down
+        setIsVisible(true); // Scrolling down
       } else {
         setIsVisible(true); // Scrolling up
       }
       setLastScrollY(currentScrollY);
 
       // Change header background based on scroll position
-      setIsActive(currentScrollY > 60);
+      setIsActive(currentScrollY > 100);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -38,8 +39,9 @@ const Header = () => {
     };
   }, [lastScrollY]);
 
+  // Handle search input changes
   const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
+    setSearchTerm(e.target.value); // Update search term in the context
   };
 
   return (
@@ -51,7 +53,7 @@ const Header = () => {
       } fixed w-full z-10 lg:px-8 transition-transform duration-300`}
     >
       <div className="container mx-auto flex items-center justify-between h-full">
-        <Link to={"/"}>
+        <Link to="/">
           <div className="w-[40px]">
             <img src={Logo} alt="Logo" />
           </div>
@@ -62,8 +64,8 @@ const Header = () => {
           <input
             type="text"
             placeholder="Search..."
-            value={searchQuery}
-            onChange={handleSearch}
+            value={searchTerm}
+            onChange={handleSearch} // Update search term on change
             className="w-full py-2 px-4 rounded-lg border border-gray-300 focus:outline-none focus:border-gray-500 focus:ring-2 focus:ring-gray-300 transition"
           />
         </div>

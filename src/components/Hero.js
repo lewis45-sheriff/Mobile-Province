@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import phone from '../img/phone.jpg'
 
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,7 +11,7 @@ const Hero = () => {
       {/* Navigation */}
       <nav className="absolute w-full px-6 py-4 z-10 bg-gradient-to-r from-blue-600 to-cyan-700">
         <div className="container mx-auto flex items-center justify-between">
-          <div className="text-white font-bold text-2xl">Brand</div>
+          <div className="text-white font-bold text-2xl"></div>
 
           {/* Toggle Menu for Mobile */}
           <div className="md:hidden">
@@ -24,7 +25,7 @@ const Hero = () => {
             <Link to="/smartphones" className="text-white hover:text-cyan-300">All Smartphones</Link>
             <Link to="/apple" className="text-white hover:text-cyan-300">Apple</Link>
             <Link to="/samsung" className="text-white hover:text-cyan-300">Samsung</Link>
-            <Link to="/discounts" className="text-white hover:text-cyan-300">MoDiscounts</Link>
+            <Link to="/discounts" className="text-white hover:text-cyan-300">Second Hand</Link>
           </div>
         </div>
       </nav>
@@ -42,8 +43,8 @@ const Hero = () => {
             <p className="text-lg mb-8">
               Pay on delivery, 48 hours to return your device (at no charge). 1 year warranty
             </p>
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="inline-block py-4 px-8 bg-emerald-400 text-white font-semibold uppercase rounded-full hover:bg-emerald-500 transition"
             >
               Discover More
@@ -51,27 +52,28 @@ const Hero = () => {
           </div>
 
           {/* Right Content - Phone Image */}
-          <div className="hidden md:flex w-1/2 justify-center">
-            <img 
-              src="/api/placeholder/600/800"
+          <div className="hidden md:flex w-full md:w-1/2 justify-full">
+            <img
+              src={phone}
               alt="Latest smartphone"
-              className="rounded-lg shadow-2xl transform -rotate-12 hover:rotate-0 transition-transform duration-500"
+              className="rounded-lg shadow-2xl transform -rotate-12 hover:rotate-0 transition-transform duration-500 w-full h-auto max-w-[500px] md:max-w-[600px]" // Adjusted size
             />
           </div>
+
         </div>
       </section>
 
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden" 
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden"
           onClick={() => setIsMenuOpen(false)}
         >
-          <div 
+          <div
             className="bg-white w-64 h-full p-4 mt-16"
             onClick={(e) => e.stopPropagation()}
           >
-            
+
           </div>
         </div>
       )}
