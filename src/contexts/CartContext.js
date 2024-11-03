@@ -46,7 +46,7 @@ const CartProvider = ({ children }) => {
   const addToCart = async (product, id) => {
     const newItem = { ...product, amount: 1 };
     try {
-      const response = await fetch(`${apiUrl}add`, {
+      const response = await fetch(`${apiUrl}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
