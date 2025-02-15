@@ -17,6 +17,10 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+  useEffect(() => {
+    updateToken(); // ✅ Ensure updateToken is used correctly
+  }, [updateToken]); // ✅ Add updateToken to the dependency array
+  
 
   // Login user function
   const loginUser = async (e) => {
